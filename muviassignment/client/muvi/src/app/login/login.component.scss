@@ -1,0 +1,33 @@
+.example-small-box, .example-large-box {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 16px;
+    padding: 16px;
+    border-radius: 8px;
+  }
+  
+  .example-small-box {
+    height: auto;
+    width: 300px;
+  }
+  
+  .example-large-box {
+    height: auto;
+    width: 300px;
+  }
+
+  .inline-error-message {
+    margin-bottom: 10px;
+    padding-right: 5px;
+    font-size: 12px;
+    line-height: 1.2;
+    letter-spacing: 0.6px;
+    color: #ee2c3a;
+    background-color: #fff;
+      z-index: 99;
+      .success {
+          color: #087c03;;;
+      }
+    }
+  

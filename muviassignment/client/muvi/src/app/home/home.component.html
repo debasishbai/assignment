@@ -1,0 +1,85 @@
+
+<div class="col-md-2">
+</div>
+
+<div class="col-md-8">
+<div class="logout-button" *ngIf="userName !== undefined">
+    <button mat-button [matMenuTriggerFor]="menu">Hi {{userName}}</button>
+    <mat-menu #menu="matMenu">
+        <button mat-menu-item color="primary" (click)="logout()">Logout</button>
+    </mat-menu>
+</div>
+    
+
+<div class="content-section">
+  <form [formGroup]="contentForm">
+      <div formArrayName="content" *ngFor="let item of contentForm.get('content')['controls']; let i=index;">
+        <div [formGroupName]="i">
+          <mat-expansion-panel class="expansion-panel">
+            <mat-expansion-panel-header>
+              <mat-panel-title *ngIf="item.value['genre'] !== ''">
+                {{item.value['genre']}}
+              </mat-panel-title>
+              <mat-panel-title *ngIf="item.value['genre'] === ''">
+                <p>New Content</p>
+              </mat-panel-title>
+              <mat-panel-description *ngIf="item.value['category'] !== ''">
+                {{item.value['category'] | titlecase}}
+              </mat-panel-description>
+            </mat-expansion-panel-header>
+            <mat-form-field>
+              <input matInput formControlName="genre" placeholder="Genre" type="text">
+            </mat-form-field>
+            <mat-form-field>
+              <textarea matInput formControlName="story" placeholder="Description" type="text"></textarea>
+            </mat-form-field>
+            <div *ngIf="dropDownValues['category'] !== undefined">
+              <mat-form-field>
+                  <mat-select placeholder="Category" formControlName="category">
+                    <mat-option *ngFor="let item of dropDownValues['category']" [value]="item[0]">
+                      {{item[1]}}
+                    </mat-option>
+                  </mat-select>
+                </mat-form-field>
+                <mat-form-field>
+                  <mat-select placeholder="Geographical Rights" formControlName="geographical_rights">
+                    <mat-option *ngFor="let item of dropDownValues['rights']" [value]="item[0]">
+                      {{item[1]}}
+                    </mat-option>
+                  </mat-select>
+                </mat-form-field>
+                <mat-form-field>
+                  <mat-select placeholder="Currency" formControlName="currency">
+                    <mat-option *ngFor="let item of dropDownValues['currency']" [value]="item[0]">
+                      {{item[1]}}
+                    </mat-option>
+                  </mat-select>
+              </mat-form-field>
+            </div>
+            <mat-form-field>
+              <input matInput formControlName="price" type="number" min="0" maxlength="5"  placeholder="Price">
+            </mat-form-field>
+            <div class="remove-icon">
+              <button mat-raised-button color="warn" (click)="deleteRow(i)">Delete Content
+              </button>
+            </div>
+            <div class="save-button">
+              <div *ngIf="contentDetails[i] !== undefined">
+                <button mat-raised-button color="primary" (click)="editRow(i)" [disabled]="!contentForm.get('content')['controls'][i].valid">Edit Content</button>
+              </div>
+              <div class="save-icon" *ngIf="contentDetails[i] === undefined">
+                <button mat-raised-button color="primary" (click)="saveRow(i)" [disabled]="!contentForm.get('content')['controls'][i].valid">Save Content
+                </button>
+              </div>
+            </div>
+          </mat-expansion-panel>
+        </div>
+      </div>
+    </form>
+</div>
+<div class="clearfix"></div>
+  
+  <button mat-raised-button color="primary" (click)="addNewRow()">Add New Content </button>
+</div>
+
+<div class="col-md-2"></div>
